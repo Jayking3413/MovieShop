@@ -8,18 +8,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApplicationCore.Entity
 {
-    [Table("Cast")]
-    public class Cast
+    [Table("Role")]
+    public class Role
     {
         [Key]
         public int Id { get; set; }
-        [MaxLength(128)]
-        public string? Name { get; set; }
-        public string? Gender { get; set; }
-        public string? TmdbUrl { get; set; }
-        public string? Profilepath { get; set; }
+        [MaxLength(20)]
+        public string Name { get; set; }
 
-        public ICollection<MovieCast>? MovieOfCast { get; set; }
-
+        public ICollection<UserRole>? UserRoles { get; set; }
     }
 }

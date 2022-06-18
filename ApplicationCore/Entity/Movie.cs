@@ -29,7 +29,9 @@ namespace ApplicationCore.Entity
 
         public ICollection<MovieGenre>? GenreMovie { get; set; }
         public ICollection<Trailer>? Trailers { get; set; }
-
-
+        public ICollection<MovieCast>? movieOfCasts { get; set; }
+        public ICollection<Review>? Reviews { get; set; }
+        public ICollection<Favorite>? Favorites { get; set; }
+        public ICollection<Purchase>? Purchases { get; set; }
     }
 }
