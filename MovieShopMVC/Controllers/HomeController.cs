@@ -1,21 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieShopMVC.Models;
 using System.Diagnostics;
+using ApplicationCore.Contract.Service;
+using Infrastructure.Service;
 
 namespace MovieShopMVC.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IMovieService _movieService;
+        private readonly ICastService _castService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IMovieService movieService, ICastService castService)
         {
             _logger = logger;
+            _movieService = movieService;
+            _castService = castService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var movies = _movieService.GetTopGrossingMovies();
+            return View(movies);
         }
 
         public IActionResult Privacy()

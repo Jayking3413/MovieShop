@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -8,6 +9,19 @@ namespace Infrastructure.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Profilepath",
+                table: "Cast",
+                type: "nvarchar(2084)",
+                maxLength: 2084,
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(2084)",
+                oldMaxLength: 2084,
+                oldNullable: true);
+
             migrationBuilder.CreateTable(
                 name: "Trailer",
                 columns: table => new
@@ -15,8 +29,8 @@ namespace Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MovieId = table.Column<int>(type: "int", nullable: false),
-                    TrailerUrl = table.Column<string>(type: "nvarchar(2084)", maxLength: 2084, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(2084)", maxLength: 2084, nullable: false)
+                    TrailerUrl = table.Column<string>(type: "nvarchar(2084)", maxLength: 2084, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(2084)", maxLength: 2084, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -39,6 +53,7 @@ namespace Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Trailer");
+
         }
     }
 }

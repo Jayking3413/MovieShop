@@ -9,7 +9,7 @@ namespace ApplicationCore.Entity
     public class Movie
     {
         public int Id { get; set; }
-        public string? Title { get; set; }
+        public string Title { get; set; }
         public string? Overview { get; set; }
         public string? Tagline { get; set; }
         public decimal? Budget { get; set; }
@@ -27,11 +27,12 @@ namespace ApplicationCore.Entity
         public string? UpdatedBy { get; set; }
         public string? CreatedBy { get; set; }
 
-        public ICollection<MovieGenre>? GenreMovie { get; set; }
-        public ICollection<Trailer>? Trailers { get; set; }
-        public ICollection<MovieCast>? movieOfCasts { get; set; }
-        public ICollection<Review>? Reviews { get; set; }
-        public ICollection<Favorite>? Favorites { get; set; }
-        public ICollection<Purchase>? Purchases { get; set; }
+        public ICollection<MovieGenre> GenreMovie { get; set; }
+        public ICollection<MovieCast> movieOfCasts { get; set; }
+        public ICollection<Review> Reviews { get; set; }
+        public ICollection<Favorite> Favorites { get; set; }
+        public ICollection<Trailer> Trailers { get; set; }
+        public ICollection<Purchase> Purchase { get; set; }
+        public ICollection<MovieCrew> MovieCrews { get; set; }
     }
 }

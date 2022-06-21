@@ -17,9 +17,10 @@ namespace ApplicationCore.Entity
         public string? Name { get; set; }
         public string? Gender { get; set; }
         public string? TmdbUrl { get; set; }
+        [MaxLength(2084)]
         public string? Profilepath { get; set; }
 
-        public ICollection<MovieCast>? MovieOfCast { get; set; }
+        public ICollection<MovieCast> MovieOfCast { get; set; }
 
     }
 }

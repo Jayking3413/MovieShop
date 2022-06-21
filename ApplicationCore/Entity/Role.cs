@@ -14,8 +14,8 @@ namespace ApplicationCore.Entity
         [Key]
         public int Id { get; set; }
         [MaxLength(20)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
-        public ICollection<UserRole>? UserRoles { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
     }
 }

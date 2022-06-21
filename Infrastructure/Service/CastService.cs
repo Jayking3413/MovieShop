@@ -1,4 +1,7 @@
-﻿using ApplicationCore.Contract.Service;
+﻿using ApplicationCore.Contract.Respository;
+using ApplicationCore.Contract.Service;
+using ApplicationCore.Model;
+using ApplicationCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +12,30 @@ namespace Infrastructure.Service
 {
     public class CastService : ICastService
     {
+        private readonly ICastRepository _castRepository;
+
+        public CastService(ICastRepository castRepository)
+        {
+            _castRepository = castRepository;
+        }
+        public CastDetailsModel GetCastDetails(int id)
+        {
+
+            var castDetails = _castRepository.GetById(id);
+
+            var cast = new CastDetailsModel
+            {
+                Id = castDetails.Id,
+                Name = castDetails.Name,
+                ProfilePath = castDetails.Profilepath,
+                Gender = castDetails.Gender
+            };
+            foreach (var movie in castDetails.MovieOfCast)
+            {
+                cast.Cards.Add(new MovieCardModel { Id = movie.Id, PosterUrl = movie.PosterUrl, Title = movie.Title });
+            }
+
+            return cast;
+        }
     }
 }
