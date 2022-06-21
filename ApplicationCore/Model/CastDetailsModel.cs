@@ -10,14 +10,14 @@ namespace ApplicationCore.Model
     {
         public CastDetailsModel()
         {
-            Cards = new List<MovieCardModel>();
+            movies = new List<MovieCastModel>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
         public string ProfilePath { get; set; }
         public string Gender { get; set; }
-        public string Character { get; set; }
 
-        public List<MovieCardModel> Cards { get; set; }
+        public List<MovieCastModel> movies { get; set; }
+
     }
 }

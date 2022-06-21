@@ -29,11 +29,13 @@ namespace Infrastructure.Service
                 Name = castDetails.Name,
                 ProfilePath = castDetails.Profilepath,
                 Gender = castDetails.Gender
+
             };
-            foreach (var movie in castDetails.MovieOfCast)
+            foreach (var moviecast in castDetails.MovieOfCast)
             {
-                cast.Cards.Add(new MovieCardModel { Id = movie.Id, PosterUrl = movie.PosterUrl, Title = movie.Title });
+                cast.movies.Add(new MovieCastModel{ Id = moviecast.MovieId, Character = moviecast.Character,});
             }
+           
 
             return cast;
         }
