@@ -1,5 +1,15 @@
-﻿using ApplicationCore.Contract.Service;
+﻿
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ApplicationCore.Contract.Service;
+
 
 namespace MovieShopMVC.Controllers
 {
@@ -18,5 +28,7 @@ namespace MovieShopMVC.Controllers
             var movie = await _movieService.GetMovieDetails(id);
             return View(movie);
         }
+
+        
     }
 }
