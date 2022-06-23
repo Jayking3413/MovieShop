@@ -17,7 +17,7 @@ namespace Infrastructure.Repository
         {
 
         }
-        public override Cast GetById(int id)
+        public  override Cast GetById(int id)
         {
             var castDetails = _dbContext.Casts
                 .Include(x => x.MovieOfCast).ThenInclude(x => x.Movie)

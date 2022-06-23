@@ -17,28 +17,27 @@ namespace Infrastructure.Repository
 
         }
 
-        public IEnumerable<Movie> Get30HighestGrossingMovies()
+        public async Task<IEnumerable<Movie>> Get30HighestGrossingMovies()
         {
             // linQ code to get to 30
-            var movies = _dbContext.Movies.OrderByDescending(m => m.Revenue).Take(30).ToList();
+            var movies = await _dbContext.Movies.OrderByDescending(m => m.Revenue).Take(30).ToListAsync();
             return movies;
-
         }
 
-        public IEnumerable<Movie> Get30HighestRatedMovies()
+        public Task<IEnumerable<Movie>> Get30HighestRatedMovies()
         {
             throw new NotImplementedException();
         }
 
-        public override Movie GetById(int id)
+        public async override Task<Movie> GetById(int id)
         {
-            var movieDetails = _dbContext.Movies
+            var movieDetails = await _dbContext.Movies
                 .Include(x => x.GenreMovie).ThenInclude(x => x.Genre)
                 .Include(x => x.Trailers)
                 .Include(x => x.movieOfCasts).ThenInclude(x => x.Cast)
                 .Include(x => x.Purchase)
                 .Include(x => x.Reviews)
-                .FirstOrDefault(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
             return movieDetails;
         }
     }

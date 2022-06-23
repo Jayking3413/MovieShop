@@ -9,7 +9,7 @@ namespace ApplicationCore.Contract.Service
 {
     public interface IMovieService
     {
-        List<MovieCardModel> GetTopGrossingMovies();
-        MovieDetailsModel GetMovieDetails(int id);
+        Task<List<MovieCardModel>> GetTopGrossingMovies();
+        Task<MovieDetailsModel> GetMovieDetails(int id);
     }
 }
