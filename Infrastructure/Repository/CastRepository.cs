@@ -17,11 +17,11 @@ namespace Infrastructure.Repository
         {
 
         }
-        public  override Cast GetById(int id)
+        public async override Task<Cast> GetById(int id)
         {
-            var castDetails = _dbContext.Casts
+            var castDetails = await _dbContext.Casts
                 .Include(x => x.MovieOfCast).ThenInclude(x => x.Movie)
-                .FirstOrDefault(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
             return castDetails;
         }
     }

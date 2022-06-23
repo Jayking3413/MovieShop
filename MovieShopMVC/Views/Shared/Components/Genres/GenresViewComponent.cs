@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace MovieShopMVC.Views.Shared.Component.Genre
+namespace MovieShopMVC.Views.Shared.Components.Genres
 {
     public class GenresViewComponent : ViewComponent
     {
