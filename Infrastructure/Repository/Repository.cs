@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
@@ -26,9 +27,9 @@ namespace Infrastructure.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Set<T>().ToListAsync();
         }
 
         public virtual Task<T> GetById(int id)
@@ -40,5 +41,7 @@ namespace Infrastructure.Repository
         {
             throw new NotImplementedException();
         }
+
+     
     }
 }
