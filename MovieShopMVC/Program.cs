@@ -5,6 +5,7 @@ using ApplicationCore.Entity;
 using Infrastructure.Data;
 using Infrastructure.Repository;
 using Infrastructure.Service;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -27,6 +28,17 @@ builder.Services.AddDbContext<MovieShopDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MovieShopDbConnection"));
 });
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(
+        options =>
+        {
+            options.Cookie.Name = "MovieShopAuthCookie";
+            options.ExpireTimeSpan = TimeSpan.FromHours(2);
+            options.LoginPath = "/account/login";
+        }
+    );
+
 
 var app = builder.Build();
 

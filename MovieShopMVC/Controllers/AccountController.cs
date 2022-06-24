@@ -22,19 +22,22 @@ namespace MovieShopMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UserLoginModel model)
         {
-           var isVaildPassword = await _accountService.ValidateUser(model.Email, model.Password);
-           if (isVaildPassword == true)
+           var user = await _accountService.ValidateUser(model.Email, model.Password);
+           if (user != null)
             {
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email, model.Email),
-                    new Claim(ClaimTypes.Surname, ""),
-                    new Claim(ClaimTypes.GivenName, ""),
-                    new Claim(ClaimTypes.NameIdentifier, ""),
-                    new Claim(ClaimTypes.DateOfBirth, ""),
-                    new Claim("Language", "English"),
+                    new Claim(ClaimTypes.Surname, user.LastName),
+                    new Claim(ClaimTypes.GivenName, user.FIrstName),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.DateOfBirth, user.DateOfBirth.ToShortDateString()),
                     new Claim(ClaimTypes.Country, "USA"),
+                    new Claim("Language", "English")
                 };
+
+                //create cookie and claims information
+
                 return LocalRedirect("~/");
             }
            return View(model);
