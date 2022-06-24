@@ -51,7 +51,7 @@ namespace Infrastructure.Service
             return false;
         }
 
-        public async Task<bool> ValidateUser(string email, string password)
+        public async Task<UserModel> ValidateUser(string email, string password)
         {
             var user = await _userRepository.GetUserByEmail(email);
             if (user == null)
@@ -59,11 +59,20 @@ namespace Infrastructure.Service
                 throw new Exception("Email does not exist");
             }
             var hashedPassword = GetHashedPassword(password, user.Salt);
+
             if (hashedPassword == user.HashedPassword)
             {
-                return true;
+                var userModel = new UserModel
+                {
+                    Id = user.Id,
+                    DateOfBirth = user.DateOfBirth.GetValueOrDefault(),
+                    Email = user.Email,
+                    FIrstName = user.FirstName,
+                    LastName = user.LastName
+                };
+                return userModel;
             }
-            return false;
+            return null;;
         }
         
         private string GetRandomSalt()

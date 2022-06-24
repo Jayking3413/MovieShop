@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Contract.Service;
 using ApplicationCore.Model;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MovieShopMVC.Controllers
 {
@@ -24,6 +25,16 @@ namespace MovieShopMVC.Controllers
            var isVaildPassword = await _accountService.ValidateUser(model.Email, model.Password);
            if (isVaildPassword == true)
             {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Email, model.Email),
+                    new Claim(ClaimTypes.Surname, ""),
+                    new Claim(ClaimTypes.GivenName, ""),
+                    new Claim(ClaimTypes.NameIdentifier, ""),
+                    new Claim(ClaimTypes.DateOfBirth, ""),
+                    new Claim("Language", "English"),
+                    new Claim(ClaimTypes.Country, "USA"),
+                };
                 return LocalRedirect("~/");
             }
            return View(model);
