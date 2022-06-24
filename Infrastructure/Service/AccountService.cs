@@ -68,7 +68,7 @@ namespace Infrastructure.Service
         private string GetHashedPassword(string password, string salt)
         {
             var hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password, Convert.FromBase64String(Salt),
+                password, Convert.FromBase64String(salt),
                 KeyDerivationPrf.HMACSHA512, 10000, 256 / 8));
             return hashed;
         }
