@@ -1,5 +1,7 @@
 ﻿using ApplicationCore.Contract.Service;
 using ApplicationCore.Model;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -37,6 +39,10 @@ namespace MovieShopMVC.Controllers
                 };
 
                 //create cookie and claims information
+                
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
 
                 return LocalRedirect("~/");
             }
