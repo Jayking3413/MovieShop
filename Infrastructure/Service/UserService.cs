@@ -9,5 +9,6 @@ namespace Infrastructure.Service
 {
     public class UserService : IUserService
     {
+
     }
 }
