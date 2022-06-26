@@ -23,9 +23,9 @@ builder.Services.AddScoped<IRepository<Genre>, Repository<Genre>>();
 builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentLogedInUser, CurrentLogedInUser>();
 
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<MovieShopDbContext>(options =>
 {
@@ -57,6 +57,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

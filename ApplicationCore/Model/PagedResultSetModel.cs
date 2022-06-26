@@ -8,8 +8,6 @@ namespace ApplicationCore.Model
 {
     public class PagedResultSetModel<T> where T : class
     {
-        public PagedResultSetModel    
-  
         public int PageNumber { get; }
         public int TotalRecords { get; }
         public int TotalPages { get; }
