@@ -64,6 +64,20 @@ namespace Infrastructure.Service
 
             return movie;
         }
+
+        public async Task<PagedResultSetModel<MovieCardModel>> GetMoviesByGenre(int genreId, int pageSize = 30, int pageNumber = 1)
+        {
+            var movies = await _movieRepository.GetMoviesByGenre(genreId, pageSize, pageNumber);
+
+            var movieCard = new List<MovieCardModel>();
+
+            foreach (var movie in movies.PagedData)
+            {
+                movieCard.Add(new MovieCardModel { Id = movie.Id, PosterUrl = movie.PosterUrl, Title = movie.Title });
+            }
+            return new PagedResultSetModel<MovieCardModel>(pageNumber, movies.TotalRecords, pageSize, movieCard);
+        }
+
         public async Task<List<MovieCardModel>> GetTopGrossingMovies()
         {
             var movies = await _movieRepository.Get30HighestGrossingMovies();

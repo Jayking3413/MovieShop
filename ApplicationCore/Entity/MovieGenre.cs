@@ -12,7 +12,7 @@ namespace ApplicationCore.Entity
         public int GenreId { get; set; }
 
         //Navigation property
-        public Movie Moive { get; set; }
+        public Movie Movie { get; set; }
         public Genre Genre { get; set; }
 
     }
