@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using ApplicationCore.Model;
 
 namespace Infrastructure.Repository
 {
@@ -15,7 +16,22 @@ namespace Infrastructure.Repository
         {
         }
 
+        public Task<Favorite> CheckFavorite(int id, int movieId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<bool> CheckIfMoviePurchasedByUser(int userId, int movieId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Favorite> GetFavorites(FavoriteRequestModel favoriteRequest)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Review> GetReviews(int userId, int movieId)
         {
             throw new NotImplementedException();
         }

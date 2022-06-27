@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ApplicationCore.Contract.Repository;
+﻿using ApplicationCore.Contract.Repository;
 using ApplicationCore.Contract.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,39 +14,27 @@ namespace MovieShopAPI.Controllers
 
         public MovieController(IMovieRepository movieRepository)
         {
-            this._movieRepository = movieRepository;
+            _movieRepository = movieRepository;
         }
 
         public MovieController(IMovieService movieService)
         {
             _movieService = movieService;
         }
-
         [HttpGet]
         [Route("top-grossing")]
-        // Attribute Routing
-        // MVC http://localhost/movies/GetTopGrossingMovies => Traditional/Convention based routing
-        // http://localhost/api/movies/top-grossing
-        
-        
         public async Task<IActionResult> GetTopGrossingMovies()
         {
-            // call my service
             var movies = await _movieService.GetTopGrossingMovies();
-            // return the movies information in JSON Format
-            // ASP.NET Core automatically serializes C# objects to JSOn objects
-            // System.Text.Json .NET 3
-            // older version of .NET to work with JSON Newtonsoft.JSON
-            // return data(json format) along with it return the HTTP status code
 
             if (movies == null || !movies.Any())
             {
                 // 404
                 return NotFound(new { errorMessage = "No Movies Found" });
             }
+
             return Ok(movies);
         }
-
         [HttpGet]
         [Route("{id:int}")]
         public async Task<IActionResult> GetMovie(int id)
@@ -60,6 +44,7 @@ namespace MovieShopAPI.Controllers
             {
                 return NotFound(new { errorMessage = $"No Movie Found for id: {id}" });
             }
+
             return Ok(movie);
         }
         [HttpGet]
@@ -74,6 +59,5 @@ namespace MovieShopAPI.Controllers
             }
             return Ok(topRatedMovies);
         }
-
     }
 }

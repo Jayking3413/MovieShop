@@ -9,7 +9,6 @@ namespace MovieShopAPI.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-
         private readonly IAccountService _accountService;
 
         public AccountController(IAccountService accountService)
@@ -18,7 +17,7 @@ namespace MovieShopAPI.Controllers
         }
 
         [HttpPost]
-        [Route("asdjaoignergnlseg")]
+        [Route("register")]
         public async Task<IActionResult> Register([FromBody] UserRegisterModel model)
         {
             var user = await _accountService.RegisterUser(model);

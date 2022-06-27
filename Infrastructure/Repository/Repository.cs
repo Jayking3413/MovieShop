@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ApplicationCore.Model;
 
 namespace Infrastructure.Repository
 {
@@ -29,6 +30,11 @@ namespace Infrastructure.Repository
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
             return entity;
+        }
+
+        public Task Delete(FavoriteRequestModel favoriteRequest)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<T>> GetAll()
