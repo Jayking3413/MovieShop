@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationCore.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,6 @@ namespace ApplicationCore.Contract.Repository
         Task<T> Add(T entity);
         Task<T> Update(T entity);
         Task<T> Delete(T entity);
+        Task Delete(FavoriteRequestModel favoriteRequest);
     }
 }

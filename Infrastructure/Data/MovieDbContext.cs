@@ -31,6 +31,7 @@ namespace Infrastructure.Data
         public DbSet<Crew> Crewers { get; set; }
         public DbSet<MovieCrew> MovieCrews { get; set; }
         public DbSet<User> Users { get; set; }
+        
 
 
         //virtual method

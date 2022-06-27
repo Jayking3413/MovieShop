@@ -1,9 +1,5 @@
 ﻿using ApplicationCore.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ApplicationCore.Model;
 
 namespace ApplicationCore.Contract.Repository
 {
@@ -11,5 +7,8 @@ namespace ApplicationCore.Contract.Repository
     {
         Task<User> GetUserByEmail(string email);
         Task<bool> CheckIfMoviePurchasedByUser(int userId, int movieId);
+        Task<Favorite> GetFavorites(FavoriteRequestModel favoriteRequest);
+        Task<Review> GetReviews(int userId, int movieId);
+        Task<Favorite> CheckFavorite (int id, int movieId);
     }
 }
