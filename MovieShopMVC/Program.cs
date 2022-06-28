@@ -21,12 +21,13 @@ builder.Services.AddScoped<ICastService, CastService>();
 builder.Services.AddScoped<ICastRepository, CastRepository>();
 builder.Services.AddScoped<IRepository<Genre>, Repository<Genre>>();
 builder.Services.AddScoped<IGenreService, GenreService>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICurrentLogedInUser, CurrentLogedInUser>();
-builder.Services.AddScoped<IRepository<Purchase>, Repository<Purchase>>();
+builder.Services.AddScoped<IRepository<Review>, Repository<Review>>();
 builder.Services.AddScoped<IRepository<Favorite>, Repository<Favorite>>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
 
 builder.Services.AddHttpContextAccessor();
 

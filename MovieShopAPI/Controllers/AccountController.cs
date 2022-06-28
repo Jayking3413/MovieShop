@@ -23,5 +23,22 @@ namespace MovieShopAPI.Controllers
             var user = await _accountService.RegisterUser(model);
             return Ok(user);
         }
+
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login(string eamil, string password)
+        {
+            var signIn = await _accountService.ValidateUser(eamil, password);
+            
+            return Ok(signIn);
+        }
+
+        //[HttpGet]
+        //[Route("check-email")]
+        //public async Task<IActionResult> checkEmail(string email)
+        //{
+        //    var emails = await _accountService.GetUserByEmail(email);
+        //    return Ok(email);
+        //}
     }
 }

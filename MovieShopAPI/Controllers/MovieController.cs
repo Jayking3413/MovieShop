@@ -10,12 +10,7 @@ namespace MovieShopAPI.Controllers
     public class MovieController : ControllerBase
     {
         private readonly IMovieService _movieService;
-        private readonly IMovieRepository _movieRepository;
-
-        public MovieController(IMovieRepository movieRepository)
-        {
-            _movieRepository = movieRepository;
-        }
+       
 
         public MovieController(IMovieService movieService)
         {
@@ -32,9 +27,9 @@ namespace MovieShopAPI.Controllers
                 // 404
                 return NotFound(new { errorMessage = "No Movies Found" });
             }
-
             return Ok(movies);
         }
+
         [HttpGet]
         [Route("{id:int}")]
         public async Task<IActionResult> GetMovie(int id)
@@ -47,17 +42,19 @@ namespace MovieShopAPI.Controllers
 
             return Ok(movie);
         }
+
         [HttpGet]
         [Route("top-rated")]
-        public async Task<IActionResult> GetTop30RatedMovies(int id)
+        public async Task<IActionResult> GetTopRatedMovies()
         {
-            var topRatedMovies = await _movieRepository.Get30HighestRatedMovies();
+            var movies = await _movieService.GetTopRatedMovies();
 
-            if (topRatedMovies == null)
+            if (movies == null || !movies.Any())
             {
-                return NotFound(new { errorMessage = "No Movies Found" });
+                return NotFound(new { errorMessage = "NO MOVIES FOUND" });
             }
-            return Ok(topRatedMovies);
+            return Ok(movies);
         }
+
     }
 }

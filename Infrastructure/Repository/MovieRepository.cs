@@ -25,9 +25,10 @@ namespace Infrastructure.Repository
             return movies;
         }
 
-        public Task<IEnumerable<Movie>> Get30HighestRatedMovies()
+        public async Task<IEnumerable<Movie>> Get30HighestRatedMovies()
         {
-            throw new NotImplementedException();
+            var movies = await _dbContext.Movies.OrderByDescending(m => m.Reviews).Take(30).ToListAsync();
+            return (IEnumerable<Movie>)movies;
         }
 
         public async override Task<Movie> GetById(int id)
