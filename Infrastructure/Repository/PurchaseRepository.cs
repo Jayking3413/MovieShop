@@ -2,6 +2,7 @@
 using ApplicationCore.Entity;
 using ApplicationCore.Model;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,26 @@ namespace Infrastructure.Repository
 
         }
 
-        public Task<Purchase> GetDetail(PurchaseRequestModel purchaseRequest, int userId)
+        public async Task<bool> CheckIfPurchaseExists(int userId, int movieId)
         {
-            throw new NotImplementedException();
+            var purchase = await _dbContext.Purchases
+                .Where(p => p.UserId == userId && p.MovieId == movieId)
+                .FirstOrDefaultAsync();
+
+            return purchase != null;
         }
 
-        public Task<Purchase> GetPurchasesDetail(int userId, int movieId)
+        public async Task<IEnumerable<Purchase>> GetPurchasesByUserId(int id)
         {
-            throw new NotImplementedException();
+            var purchases = await _dbContext.Purchases
+                .Where(x => x.UserId == id)
+                .Include(x => x.Movie)
+                .OrderByDescending(x => x.Movie.Revenue)
+                .ToListAsync();
+
+            return purchases;
         }
+
+
     }
 }

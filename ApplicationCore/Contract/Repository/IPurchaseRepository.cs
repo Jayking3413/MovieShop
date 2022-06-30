@@ -10,7 +10,7 @@ namespace ApplicationCore.Contract.Repository
 {
     public interface IPurchaseRepository : IRepository<Purchase>
     {
-        Task<Purchase> GetPurchasesDetail(int userId, int movieId);
-        Task<Purchase> GetDetail(PurchaseRequestModel purchaseRequest, int userId);
+        Task<IEnumerable<Purchase>> GetPurchasesByUserId(int id);
+        Task<bool> CheckIfPurchaseExists(int userId, int movieId);
     }
 }

@@ -25,10 +25,23 @@ namespace Infrastructure.Repository
             return movies;
         }
 
-        public async Task<IEnumerable<Movie>> Get30HighestRatedMovies()
+        public async Task<IEnumerable<Review>> Get30HighestRatedMovies()
         {
-            var movies = await _dbContext.Movies.OrderByDescending(m => m.Reviews).Take(30).ToListAsync();
-            return (IEnumerable<Movie>)movies;
+            var movies = await _dbContext.Reviews
+                .OrderByDescending(m => m.Rating)
+                .Take(30)
+                .ToListAsync();
+
+            return movies;
+        }
+
+            public async Task<decimal> GetAverageRatingForMovie(int movieId)
+        {
+            var rating = await _dbContext.Reviews
+                .Where(r => r.MovieId == movieId)
+                .AverageAsync(x => x.Rating);
+
+            return rating;
         }
 
         public async override Task<Movie> GetById(int id)
@@ -58,9 +71,38 @@ namespace Infrastructure.Repository
 
             var pagedMovies = new PagedResultSetModel<Movie>(pageNumber, totalMoviesForGenre, pageSize, movies);
             return pagedMovies;
-
-
         }
+        public async Task<PagedResultSetModel<Review>> GetReviewByMovie(int movieId, int pageSize = 30, int pageNumber = 1)
+        {
+            // get total count movies for the genre
+            var ReviewsForMovie = await _dbContext.Reviews.Where(g => g.MovieId == movieId).CountAsync();
+
+            var reviews = await _dbContext.Reviews
+                .Where(g => g.MovieId == movieId)
+                .Include(g => g.movie)
+                .Select(m => new Review { MovieId = m.MovieId, Rating = m.Rating, ReviewText = m.ReviewText, UserId = m.UserId })
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize).ToListAsync();
+
+            var pagedMovies = new PagedResultSetModel<Review>(pageNumber, ReviewsForMovie, pageSize, reviews);
+            return pagedMovies;
+        }
+
+        public async Task<PagedResultSetModel<Movie>> GetMovies(int movieId, int pageSize = 30, int pageNumber = 1)
+        {
+            
+            var totalMovies = await _dbContext.Movies.Where(g => g.Id == movieId).CountAsync();
+
+            var movies = await _dbContext.Movies
+                .Select(m => new Movie { Id = m.Id, PosterUrl = m.PosterUrl, Title = m.Title })
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize).ToListAsync();
+
+
+            var pagedMovies = new PagedResultSetModel<Movie>(pageNumber, totalMovies, pageSize, movies);
+            return pagedMovies;
+        }
+        
 
 
     }

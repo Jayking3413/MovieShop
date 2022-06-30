@@ -9,7 +9,7 @@ namespace ApplicationCore.Model
     public class PurchaseModel
     {
         public int Id { get; set; }
-        public int UerId { get; set; }
+        public int UserId { get; set; }
         public Guid PurchaseNumber { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime PurchaseDateTime { get; set; }

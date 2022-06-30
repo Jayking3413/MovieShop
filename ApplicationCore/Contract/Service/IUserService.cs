@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Model;
+﻿using ApplicationCore.Entity;
+using ApplicationCore.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +11,19 @@ namespace ApplicationCore.Contract.Service
 {
     public interface IUserService
     {
-        Task PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId);
+        Task<bool> PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId);
         Task<bool> IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId);
-        Task<PurchaseModel> GetAllPurchasesForUser(int id);
-        Task GetPurchasesDetails(int userId, int movieId);
-        Task AddFavorite(FavoriteRequestModel favoriteRequest);
-        Task RemoveFavorite(FavoriteRequestModel favoriteRequest);
+        Task<IEnumerable<PurchaseRequestModel>> GetAllPurchasesForUserId(int id);
+        Task<bool> AddFavorite(FavoriteRequestModel favoriteRequest);
+        Task<bool> RemoveFavorite(FavoriteRequestModel favoriteRequest);
         Task<bool> FavoriteExists(int id, int movieId);
-        Task<FavoriteModel> GetAllFavoritesForUser(int id);
-        Task AddMovieReview(ReviewRequestModel reviewRequest);
-        Task UpdateMovieReview(ReviewRequestModel reviewRequest);
-        Task DeleteMovieReview(int userId, int movieId);
-        Task<ReviewModel> GetAllReviewsByUser(int id);
+        Task<Favorite> GetFavoriteById(int userId, int movieId);
+        Task<IEnumerable<MovieCardModel>> GetAllFavoritesForUser(int id);
+        Task<bool> AddMovieReview(ReviewRequestModel reviewRequest);
+        Task<ReviewRequestModel> GetReview(int userId, int movieId);
+        Task<bool> UpdateMovieReview(ReviewRequestModel reviewRequest);
+        Task<bool> DeleteMovieReview(int userId, int movieId);
+        //Task<> GetAllReviewsByUser(int id);
+        
     }
 }

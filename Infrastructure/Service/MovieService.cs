@@ -53,10 +53,6 @@ namespace Infrastructure.Service
             {
                 movie.Casts.Add(new CastModel { Id = cast.CastId, Name = cast.Cast.Name, ProfilePath = cast.Cast.Profilepath, Character = cast.Character });
             }
-            foreach (var purchase in movieDetails.Purchase)
-            {
-
-            }
             foreach (var review in movieDetails.Reviews)
             {
                 movie.Reviews.Add(new ReviewModel { MovieId = review.MovieId, Rating = review.Rating });
@@ -68,6 +64,18 @@ namespace Infrastructure.Service
         public async Task<PagedResultSetModel<MovieCardModel>> GetMoviesByGenre(int genreId, int pageSize = 30, int pageNumber = 1)
         {
             var movies = await _movieRepository.GetMoviesByGenre(genreId, pageSize, pageNumber);
+
+            var movieCard = new List<MovieCardModel>();
+
+            foreach (var movie in movies.PagedData)
+            {
+                movieCard.Add(new MovieCardModel { Id = movie.Id, PosterUrl = movie.PosterUrl, Title = movie.Title });
+            }
+            return new PagedResultSetModel<MovieCardModel>(pageNumber, movies.TotalRecords, pageSize, movieCard);
+        }
+        public async Task<PagedResultSetModel<MovieCardModel>> GetMovies(int movieId, int pageSize = 30, int pageNumber = 1)
+        {
+            var movies = await _movieRepository.GetMovies(movieId, pageSize, pageNumber);
 
             var movieCard = new List<MovieCardModel>();
 
@@ -90,17 +98,6 @@ namespace Infrastructure.Service
             }
             return movieCards;
         }
-        public async Task<List<MovieCardModel>> GetTopRatedMovies()
-        {
-            var movies = await _movieRepository.Get30HighestRatedMovies();
 
-            var movieCards = new List<MovieCardModel>();
-
-            foreach (var movie in movies)
-            {
-                movieCards.Add(new MovieCardModel { Id = movie.Id, PosterUrl = movie.PosterUrl, Title = movie.Title });
-            }
-            return movieCards;
-        }
     }
 }

@@ -11,8 +11,10 @@ namespace ApplicationCore.Contract.Repository
     public interface IMovieRepository: IRepository<Movie>
     {
         Task<IEnumerable<Movie>> Get30HighestGrossingMovies();
-        Task<IEnumerable<Movie>> Get30HighestRatedMovies();
-        
+        Task<IEnumerable<Review>> Get30HighestRatedMovies();
+        Task<decimal> GetAverageRatingForMovie(int movieId);
         Task<PagedResultSetModel<Movie>> GetMoviesByGenre(int genreId, int pageSize = 30, int pageNumber = 1);
+        Task<PagedResultSetModel<Movie>> GetMovies(int movieId, int pageSize = 30, int pageNumber = 1);
+        Task<PagedResultSetModel<Review>> GetReviewByMovie(int movieId, int pageSize = 30, int pageNumber = 1);
     }
 }

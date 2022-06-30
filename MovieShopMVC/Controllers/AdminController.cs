@@ -1,6 +1,12 @@
-﻿namespace MovieShopMVC.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace MovieShopMVC.Controllers
 {
-    public class AdminController
+    public class AdminController : Controller
     {
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }
